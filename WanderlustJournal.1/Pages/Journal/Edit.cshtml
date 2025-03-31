@@ -1,0 +1,59 @@
+@page "{id:int}"
+@model WanderlustJournal.Pages.Journal.EditModel
+@{
+    ViewData["Title"] = "Edit - " + Model.JournalEntry.Title;
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-dark">
+                    <h2 class="mb-0">Edit Travel Memory</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <input type="hidden" asp-for="JournalEntry.Id" />
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="JournalEntry.Title" class="form-label"></label>
+                            <input asp-for="JournalEntry.Title" class="form-control" />
+                            <span asp-validation-for="JournalEntry.Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="JournalEntry.Location" class="form-label"></label>
+                            <input asp-for="JournalEntry.Location" class="form-control" />
+                            <span asp-validation-for="JournalEntry.Location" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="JournalEntry.DateVisited" class="form-label"></label>
+                            <input asp-for="JournalEntry.DateVisited" class="form-control" type="date" />
+                            <span asp-validation-for="JournalEntry.DateVisited" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label asp-for="JournalEntry.Notes" class="form-label"></label>
+                            <textarea asp-for="JournalEntry.Notes" class="form-control" rows="5"></textarea>
+                            <span asp-validation-for="JournalEntry.Notes" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-page="./Details" asp-route-id="@Model.JournalEntry.Id" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left"></i> Back to Details
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
