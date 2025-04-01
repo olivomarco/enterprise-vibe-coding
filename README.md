@@ -46,7 +46,7 @@ Keep the code clean and ready for future extensions.
 
 Resulting code is in the [WanderlustJournal.1](./WanderlustJournal.1/) folder.
 
-## Step 2: add search and filtering in the homepage
+### Step 2: add search and filtering in the homepage
 
 Prompt to use:
 
@@ -58,7 +58,7 @@ Optionally, add a date range filter (start date, end date) to narrow down the en
 
 Resulting code is in the [WanderlustJournal.2](./WanderlustJournal.2/) folder.
 
-## Step 3: add upload functionality
+### Step 3: add upload functionality
 
 Prompt to use:
 
