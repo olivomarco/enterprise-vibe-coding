@@ -1,5 +1,6 @@
 # Application-specific paths and files
 */wwwroot/uploads/*
+!*/wwwroot/uploads/.gitkeep
 WanderlustJournal.db*
 
 *.swp
