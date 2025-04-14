@@ -101,3 +101,11 @@ Use [Nominatim API](https://nominatim.org/) for geocoding, to convert place name
 Resulting code is in the [WanderlustJournal.5](./WanderlustJournal.5/) folder.
 
 **NOTE:** here I encountered some errors at runtime, and I basically copied and pasted the exceptions in GitHub Copilot to have it fix them for me.
+
+## PRD (Product Requirements Document) and copilot-instructions.md
+
+The repo also provides a [PRD](./prd.md) that outlines the high-level requirements for the Wanderlust Journal app. Additionally, there is a [copilot-instructions.md](./github/copilot-instructions.md) file that contains instructions for using GitHub Copilot in Agentic mode to guide it towards completion.
+
+Specifying the usage of the PRD is highly suggested, and you can use an approach like the following:
+
+> start implementing into #folder:WanderlustJournal.1 the PRD in #file:prd.md. At each step, mark the corresponding tick into the file, to keep track of the progress status.
