@@ -47,7 +47,7 @@
                     .bindPopup('<strong>' + entry.title + '</strong><br>' + 
                                entry.location + '<br>' +
                                new Date(entry.dateVisited).toLocaleDateString() + '<br>' +
-                               '<a href="/Journal/Details?id=' + entry.id + '">View Details</a>');
+                               '<a href="/Journal/Details/' + entry.id + '">View Details</a>');
                 
                 markers.push(marker);
                 bounds.extend([entry.latitude, entry.longitude]);
