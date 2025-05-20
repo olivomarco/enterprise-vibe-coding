@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace MyApp.Namespace
+namespace WanderlustJournal.Pages.Journal
 {
     public class FilterModel : AuthorizedPageModel
     {
