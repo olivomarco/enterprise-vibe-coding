@@ -23,16 +23,16 @@ namespace WanderlustJournal.Data
                     var context = services.GetRequiredService<JournalContext>();
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     
-                    // Ensure database is created
+                    // Ensure database is created - this creates tables but we won't use HasData to populate them
                     context.Database.EnsureCreated();
                     
                     // Apply custom migrations for SQLite
                     EnsureCoordinateColumnsExist(context, logger);
                     
-                    // Make sure admin user exists
+                    // Make sure admin user exists - do this BEFORE adding journal entries to avoid FK constraint issues
                     await EnsureAdminUserCreatedAsync(userManager, context, logger);
                     
-                    // Make sure seed data is present
+                    // Make sure seed data is present - after admin user exists
                     await EnsureSeedDataAsync(context, userManager, logger);
                     
                     logger.LogInformation("Database setup completed successfully.");
@@ -136,48 +136,61 @@ namespace WanderlustJournal.Data
             {
                 logger.LogInformation("Adding seed data to database");
                 
-                // Get admin user
+                // Get admin user - make sure the admin exists before trying to reference them
                 var adminUser = await userManager.FindByNameAsync("admin");
                 
-                if (adminUser != null)
+                if (adminUser == null)
                 {
-                    context.JournalEntries.AddRange(
-                        new Models.JournalEntry
-                        {
-                            Location = "Paris, France",
-                            Title = "Eiffel Tower Adventure",
-                            DateVisited = new DateTime(2024, 2, 15),
-                            Notes = "Amazing view from the top. The city lights at night were breathtaking!",
-                            ImageFileName = null,
-                            Latitude = 48.8584m,
-                            Longitude = 2.2945m,
-                            UserId = adminUser.Id
-                        },
-                        new Models.JournalEntry
-                        {
-                            Location = "Kyoto, Japan",
-                            Title = "Cherry Blossom Season",
-                            DateVisited = new DateTime(2023, 4, 5),
-                            Notes = "The gardens were filled with beautiful pink blossoms. A truly memorable experience.",
-                            ImageFileName = null,
-                            Latitude = 35.0116m,
-                            Longitude = 135.7681m,
-                            UserId = adminUser.Id
-                        },
-                        new Models.JournalEntry
-                        {
-                            Location = "Grand Canyon, USA",
-                            Title = "Hiking the South Rim",
-                            DateVisited = new DateTime(2022, 7, 22),
-                            Notes = "The scale of the canyon is impossible to capture in photos. Need to come back for a longer trip!",
-                            ImageFileName = null,
-                            Latitude = 36.0544m,
-                            Longitude = -112.2401m,
-                            UserId = adminUser.Id
-                        }
-                    );
-                    
+                    logger.LogError("Cannot add seed journal entries: Admin user not found");
+                    return;
+                }
+                
+                // Add seed data with explicit IDs
+                context.JournalEntries.AddRange(
+                    new Models.JournalEntry
+                    {
+                        Id = 1,
+                        Location = "Paris, France",
+                        Title = "Eiffel Tower Adventure",
+                        DateVisited = new DateTime(2024, 2, 15),
+                        Notes = "Amazing view from the top. The city lights at night were breathtaking!",
+                        ImageFileName = null,
+                        Latitude = 48.8584m,
+                        Longitude = 2.2945m,
+                        UserId = adminUser.Id
+                    },
+                    new Models.JournalEntry
+                    {
+                        Id = 2,
+                        Location = "Kyoto, Japan",
+                        Title = "Cherry Blossom Season",
+                        DateVisited = new DateTime(2023, 4, 5),
+                        Notes = "The gardens were filled with beautiful pink blossoms. A truly memorable experience.",
+                        ImageFileName = null,
+                        Latitude = 35.0116m,
+                        Longitude = 135.7681m,
+                        UserId = adminUser.Id
+                    },
+                    new Models.JournalEntry
+                    {
+                        Id = 3,
+                        Location = "Grand Canyon, USA",
+                        Title = "Hiking the South Rim",
+                        DateVisited = new DateTime(2022, 7, 22),
+                        Notes = "The scale of the canyon is impossible to capture in photos. Need to come back for a longer trip!",
+                        ImageFileName = null,
+                        Latitude = 36.0544m,
+                        Longitude = -112.2401m,
+                        UserId = adminUser.Id
+                    }
+                );
+                
+                try {
                     await context.SaveChangesAsync();
+                    logger.LogInformation("Seed journal entries added successfully");
+                }
+                catch (Exception ex) {
+                    logger.LogError(ex, "Error adding seed journal entries");
                 }
             }
         }

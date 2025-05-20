@@ -60,45 +60,8 @@ namespace WanderlustJournal.Data
                 .Property(e => e.Longitude)
                 .HasColumnType("decimal(10, 7)");
 
-            // Seed data
-            modelBuilder.Entity<JournalEntry>().HasData(
-                new JournalEntry
-                {
-                    Id = 1,
-                    Location = "Paris, France",
-                    Title = "Eiffel Tower Adventure",
-                    DateVisited = new DateTime(2024, 2, 15),
-                    Notes = "Amazing view from the top. The city lights at night were breathtaking!",
-                    ImageFileName = null,
-                    Latitude = 48.8584m,
-                    Longitude = 2.2945m,
-                    UserId = "1" // This will be the admin user ID
-                },
-                new JournalEntry
-                {
-                    Id = 2,
-                    Location = "Kyoto, Japan",
-                    Title = "Cherry Blossom Season",
-                    DateVisited = new DateTime(2023, 4, 5),
-                    Notes = "The gardens were filled with beautiful pink blossoms. A truly memorable experience.",
-                    ImageFileName = null,
-                    Latitude = 35.0116m,
-                    Longitude = 135.7681m,
-                    UserId = "1"
-                },
-                new JournalEntry
-                {
-                    Id = 3,
-                    Location = "Grand Canyon, USA",
-                    Title = "Hiking the South Rim",
-                    DateVisited = new DateTime(2022, 7, 22),
-                    Notes = "The scale of the canyon is impossible to capture in photos. Need to come back for a longer trip!",
-                    ImageFileName = null,
-                    Latitude = 36.0544m,
-                    Longitude = -112.2401m,
-                    UserId = "1"
-                }
-            );
+            // We'll seed data through the DatabaseMigrationHelper instead
+            // This ensures proper order of creation (user first, then journal entries)
         }
     }
 }

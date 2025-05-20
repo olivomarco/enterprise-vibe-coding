@@ -63,7 +63,13 @@ if (!app.Environment.IsDevelopment())
 
 // Initialize the database using our migration helper
 var logger = app.Services.GetRequiredService<ILogger<Program>>();
-DatabaseMigrationHelper.EnsureDatabaseCreatedAndMigrated(app.Services, logger);
+try {
+    // Use the async version for better reliability
+    DatabaseMigrationHelper.EnsureDatabaseCreatedAndMigratedAsync(app.Services, logger).Wait();
+}
+catch (Exception ex) {
+    logger.LogError(ex, "An error occurred during database initialization");
+}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
