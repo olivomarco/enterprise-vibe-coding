@@ -1,0 +1,67 @@
+@page
+@model WanderlustJournal.Pages.Journal.GeocodeModel
+
+@{
+    ViewData["Title"] = "Geocode Journal Entries";
+}
+
+<h1>Geocode Journal Entries</h1>
+<p>Add map coordinates to your existing journal entries.</p>
+
+@if (Model.IsProcessing)
+{
+    <div class="alert alert-info">
+        <h4>Processing in Progress</h4>
+        <p>Your journal entries are being geocoded. This may take a moment...</p>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                 role="progressbar" 
+                 aria-valuenow="@Model.ProcessedCount" 
+                 aria-valuemin="0" 
+                 aria-valuemax="@Model.TotalCount" 
+                 style="width: @(Model.TotalCount > 0 ? (Model.ProcessedCount * 100 / Model.TotalCount) : 0)%">
+                @Model.ProcessedCount / @Model.TotalCount
+            </div>
+        </div>
+    </div>
+}
+else if (Model.HasBeenProcessed)
+{
+    <div class="alert alert-success">
+        <h4>Geocoding Complete!</h4>
+        <p>Successfully geocoded @Model.SuccessCount out of @Model.TotalCount entries.</p>
+        @if (Model.FailedCount > 0)
+        {
+            <p>Could not find coordinates for @Model.FailedCount entries.</p>
+        }
+    </div>
+}
+
+<div class="mb-4">
+    <form method="post">
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-geo-alt"></i> Geocode All Journal Entries
+        </button>
+    </form>
+</div>
+
+<div>
+    <a asp-page="./Map" class="btn btn-primary">
+        <i class="bi bi-map"></i> View Map
+    </a>
+    <a asp-page="./Index" class="btn btn-secondary">
+        <i class="bi bi-journal-richtext"></i> Back to Journal
+    </a>
+</div>
+
+@section Scripts {
+    @if (Model.IsProcessing)
+    {
+        <script>
+            // Auto-refresh the page to see progress
+            setTimeout(function() {
+                window.location.reload();
+            }, 3000);
+        </script>
+    }
+}
