@@ -1,0 +1,62 @@
+@page
+@model WanderlustJournal.Pages.Journal.MapModel
+
+@{
+    ViewData["Title"] = "Travel Map";
+}
+
+<h1>My Travel Map</h1>
+<p>All your visited locations on one map.</p>
+
+<div id="map" style="height: 600px; width: 100%; margin-bottom: 20px;"></div>
+
+<div>
+    <a asp-page="./Index" class="btn btn-secondary">Back to Journal</a>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+          
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([20, 0], 2);
+        
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        // Add markers for each journal entry
+        var entries = @Html.Raw(Json.Serialize(Model.JournalEntries));
+        var markers = [];
+        var bounds = L.latLngBounds();
+        var hasValidEntries = false;
+        
+        entries.forEach(function(entry) {
+            if (entry.latitude && entry.longitude) {
+                hasValidEntries = true;
+                var marker = L.marker([entry.latitude, entry.longitude])
+                    .addTo(map)
+                    .bindPopup('<strong>' + entry.title + '</strong><br>' + 
+                               entry.location + '<br>' +
+                               new Date(entry.dateVisited).toLocaleDateString() + '<br>' +
+                               '<a href="/Journal/Details?id=' + entry.id + '">View Details</a>');
+                
+                markers.push(marker);
+                bounds.extend([entry.latitude, entry.longitude]);
+            }
+        });
+        
+        // Auto-fit the map to show all markers if there are valid entries
+        if (hasValidEntries) {
+            map.fitBounds(bounds, { padding: [30, 30] });
+        }
+    </script>
+}
