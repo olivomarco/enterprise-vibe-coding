@@ -24,4 +24,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WanderlustJournal.5\WanderlustJournal.csproj" />
+  </ItemGroup>
+
 </Project>
