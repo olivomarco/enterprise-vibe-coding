@@ -12,7 +12,7 @@ namespace WanderlustJournal.E2ETests.Tests
     {
         private PlaywrightFixture _fixture;
         private IPage _page;
-        private string _baseUrl = "http://localhost:5001";
+        private string _baseUrl = "http://localhost:5026";
         
         [TestInitialize]
         public void TestInitialize()
