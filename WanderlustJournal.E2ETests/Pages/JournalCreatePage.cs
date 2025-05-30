@@ -18,7 +18,7 @@ namespace WanderlustJournal.E2ETests.Pages
         private ILocator LocationInput => _page.Locator("input[id='JournalEntry_Location']");
         private ILocator DateVisitedInput => _page.Locator("input[id='JournalEntry_DateVisited']");
         private ILocator NotesTextArea => _page.Locator("textarea[id='JournalEntry_Notes']");
-        private ILocator SubmitButton => _page.GetByRole(AriaRole.Button, new() { Name = "Create" });
+        private ILocator SubmitButton => _page.GetByRole(AriaRole.Button, new() { Name = "Save Memory" });
         private ILocator ValidationErrors => _page.Locator(".validation-summary-errors");
         
         public async Task<string> GetPageHeadingAsync()

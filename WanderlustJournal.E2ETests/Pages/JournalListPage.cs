@@ -14,7 +14,7 @@ namespace WanderlustJournal.E2ETests.Pages
         public override string PagePath => "/Journal/Index";
         
         private ILocator PageHeading => _page.Locator("h1");
-        private ILocator CreateNewButton => _page.GetByRole(AriaRole.Link, new() { Name = "Create New" });
+        private ILocator CreateNewButton => _page.GetByRole(AriaRole.Link, new() { Name = "Add New Memory" });
         private ILocator SearchInput => _page.Locator("input[name='SearchTerm']");
         private ILocator SearchButton => _page.GetByRole(AriaRole.Button, new() { Name = "Search" });
         private ILocator JournalEntries => _page.Locator(".card");
