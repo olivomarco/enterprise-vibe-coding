@@ -21,9 +21,7 @@ namespace WanderlustJournal.Tests.Pages.Journal
         public void OnGet_InitializesJournalEntry()
         {
             // Arrange
-            var journalEntryServiceMock = new Mock<JournalEntryService>(
-                Mock.Of<WanderlustJournal.Data.JournalContext>(), 
-                Mock.Of<GeocodingService>());
+            var journalEntryServiceMock = new Mock<IJournalEntryService>();
             
             var webHostEnvironmentMock = new Mock<IWebHostEnvironment>();
             
@@ -41,9 +39,7 @@ namespace WanderlustJournal.Tests.Pages.Journal
         public async Task OnPostAsync_WithValidModel_RedirectsToIndex()
         {
             // Arrange
-            var journalEntryServiceMock = new Mock<JournalEntryService>(
-                Mock.Of<WanderlustJournal.Data.JournalContext>(), 
-                Mock.Of<GeocodingService>());
+            var journalEntryServiceMock = new Mock<IJournalEntryService>();
             
             journalEntryServiceMock.Setup(svc => svc.AddEntryAsync(It.IsAny<JournalEntry>()))
                 .ReturnsAsync((JournalEntry entry) => 
@@ -93,9 +89,7 @@ namespace WanderlustJournal.Tests.Pages.Journal
         public async Task OnPostAsync_WithInvalidModel_ReturnsPageResult()
         {
             // Arrange
-            var journalEntryServiceMock = new Mock<JournalEntryService>(
-                Mock.Of<WanderlustJournal.Data.JournalContext>(), 
-                Mock.Of<GeocodingService>());
+            var journalEntryServiceMock = new Mock<IJournalEntryService>();
             
             var webHostEnvironmentMock = new Mock<IWebHostEnvironment>();
             

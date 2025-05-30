@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
 using Moq;
 using WanderlustJournal.Pages;
@@ -15,11 +18,12 @@ namespace WanderlustJournal.Tests.Pages
             // Arrange
             var loggerMock = new Mock<ILogger<IndexModel>>();
             var pageModel = new IndexModel(loggerMock.Object);
-            var pageContext = new PageContext();
+            
+            // Setup ViewData dictionary manually since the PageModel's ViewData is read-only
+            var viewData = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary());
+            var pageContext = new PageContext { ViewData = viewData };
             pageModel.PageContext = pageContext;
             
-            // Note: ViewData is automatically initialized by PageModel base class
-
             // Act
             pageModel.OnGet();
 

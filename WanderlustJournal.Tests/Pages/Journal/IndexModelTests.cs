@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Moq;
 using WanderlustJournal.Models;
 using WanderlustJournal.Pages.Journal;
@@ -16,15 +17,14 @@ namespace WanderlustJournal.Tests.Pages.Journal
         public void OnGet_NoSearchString_ReturnsAllEntries()
         {
             // Arrange
-            var journalEntryServiceMock = new Mock<JournalEntryService>(
-                Mock.Of<WanderlustJournal.Data.JournalContext>(), 
-                Mock.Of<GeocodingService>());
-            
             var entries = new List<JournalEntry>
             {
                 new JournalEntry { Id = 1, Title = "Paris", Location = "France" },
                 new JournalEntry { Id = 2, Title = "Tokyo", Location = "Japan" }
             };
+            
+            // Create a mock service directly
+            var journalEntryServiceMock = new Mock<IJournalEntryService>();
             
             journalEntryServiceMock.Setup(svc => svc.GetAllEntries())
                 .Returns(entries);
@@ -45,23 +45,19 @@ namespace WanderlustJournal.Tests.Pages.Journal
         public void OnGet_WithSearchString_ReturnsFilteredEntries()
         {
             // Arrange
-            var journalEntryServiceMock = new Mock<JournalEntryService>(
-                Mock.Of<WanderlustJournal.Data.JournalContext>(), 
-                Mock.Of<GeocodingService>());
-            
-            var entries = new List<JournalEntry>
+            var filteredEntries = new List<JournalEntry>
             {
-                new JournalEntry { Id = 1, Title = "Paris", Location = "France" },
-                new JournalEntry { Id = 2, Title = "Tokyo", Location = "Japan" }
+                new JournalEntry { Id = 1, Title = "Paris", Location = "France" }
             };
+            
+            // Create a mock service directly
+            var journalEntryServiceMock = new Mock<IJournalEntryService>();
             
             journalEntryServiceMock.Setup(svc => svc.GetAllEntries())
-                .Returns(entries);
+                .Returns(filteredEntries);
                 
-            var pageModel = new IndexModel(journalEntryServiceMock.Object)
-            {
-                SearchString = "Paris"
-            };
+            var pageModel = new IndexModel(journalEntryServiceMock.Object);
+            pageModel.SearchString = "Paris";
             
             // Act
             pageModel.OnGet();

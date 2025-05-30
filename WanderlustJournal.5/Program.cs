@@ -15,7 +15,7 @@ builder.Services.AddDbContext<JournalContext>(options =>
                      "Data Source=WanderlustJournal.db"));
 
 // Register JournalEntryService as scoped
-builder.Services.AddScoped<JournalEntryService>();
+builder.Services.AddScoped<IJournalEntryService, JournalEntryService>();
 
 // Register HttpClientFactory and configure the Nominatim API client
 builder.Services.AddHttpClient("NominatimApi", client =>
@@ -26,7 +26,7 @@ builder.Services.AddHttpClient("NominatimApi", client =>
 });
 
 // Register GeocodingService
-builder.Services.AddScoped<GeocodingService>();
+builder.Services.AddScoped<IGeocodingService, GeocodingService>();
 
 var app = builder.Build();
 

@@ -30,9 +30,7 @@ namespace WanderlustJournal.Tests.Services
             using var context = new JournalContext(_contextOptions);
             SeedDatabase(context);
             
-            var geocodingServiceMock = new Mock<GeocodingService>(
-                Mock.Of<IHttpClientFactory>(),
-                Mock.Of<ILogger<GeocodingService>>());
+            var geocodingServiceMock = new Mock<IGeocodingService>();
             
             var service = new JournalEntryService(context, geocodingServiceMock.Object);
 
@@ -53,9 +51,7 @@ namespace WanderlustJournal.Tests.Services
             using var context = new JournalContext(_contextOptions);
             SeedDatabase(context);
             
-            var geocodingServiceMock = new Mock<GeocodingService>(
-                Mock.Of<IHttpClientFactory>(),
-                Mock.Of<ILogger<GeocodingService>>());
+            var geocodingServiceMock = new Mock<IGeocodingService>();
             
             var service = new JournalEntryService(context, geocodingServiceMock.Object);
 
@@ -75,9 +71,7 @@ namespace WanderlustJournal.Tests.Services
             using var context = new JournalContext(_contextOptions);
             SeedDatabase(context);
             
-            var geocodingServiceMock = new Mock<GeocodingService>(
-                Mock.Of<IHttpClientFactory>(),
-                Mock.Of<ILogger<GeocodingService>>());
+            var geocodingServiceMock = new Mock<IGeocodingService>();
             
             var service = new JournalEntryService(context, geocodingServiceMock.Object);
 
@@ -94,9 +88,7 @@ namespace WanderlustJournal.Tests.Services
             // Arrange
             using var context = new JournalContext(_contextOptions);
             
-            var geocodingServiceMock = new Mock<GeocodingService>(
-                Mock.Of<IHttpClientFactory>(),
-                Mock.Of<ILogger<GeocodingService>>());
+            var geocodingServiceMock = new Mock<IGeocodingService>();
             
             geocodingServiceMock.Setup(x => 
                 x.GeocodeLocationAsync(It.IsAny<string>()))
@@ -132,9 +124,7 @@ namespace WanderlustJournal.Tests.Services
             using var context = new JournalContext(_contextOptions);
             SeedDatabase(context);
             
-            var geocodingServiceMock = new Mock<GeocodingService>(
-                Mock.Of<IHttpClientFactory>(),
-                Mock.Of<ILogger<GeocodingService>>());
+            var geocodingServiceMock = new Mock<IGeocodingService>();
             
             var service = new JournalEntryService(context, geocodingServiceMock.Object);
             var initialCount = context.JournalEntries.Count();
@@ -154,9 +144,7 @@ namespace WanderlustJournal.Tests.Services
             using var context = new JournalContext(_contextOptions);
             SeedDatabase(context);
             
-            var geocodingServiceMock = new Mock<GeocodingService>(
-                Mock.Of<IHttpClientFactory>(),
-                Mock.Of<ILogger<GeocodingService>>());
+            var geocodingServiceMock = new Mock<IGeocodingService>();
             
             var service = new JournalEntryService(context, geocodingServiceMock.Object);
 
@@ -175,9 +163,7 @@ namespace WanderlustJournal.Tests.Services
             using var context = new JournalContext(_contextOptions);
             SeedDatabase(context);
             
-            var geocodingServiceMock = new Mock<GeocodingService>(
-                Mock.Of<IHttpClientFactory>(),
-                Mock.Of<ILogger<GeocodingService>>());
+            var geocodingServiceMock = new Mock<IGeocodingService>();
             
             var service = new JournalEntryService(context, geocodingServiceMock.Object);
 
