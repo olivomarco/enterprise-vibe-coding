@@ -8,12 +8,12 @@ using WanderlustJournal.Models;
 
 namespace WanderlustJournal.Services
 {
-    public class JournalEntryService
+    public class JournalEntryService : IJournalEntryService
     {
         private readonly JournalContext _context;
-        private readonly GeocodingService _geocodingService;
+        private readonly IGeocodingService _geocodingService;
 
-        public JournalEntryService(JournalContext context, GeocodingService geocodingService)
+        public JournalEntryService(JournalContext context, IGeocodingService geocodingService)
         {
             _context = context;
             _geocodingService = geocodingService;

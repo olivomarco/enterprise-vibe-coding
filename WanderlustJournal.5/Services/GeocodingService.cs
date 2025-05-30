@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace WanderlustJournal.Services
 {
-    public class GeocodingService
+    public class GeocodingService : IGeocodingService
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<GeocodingService> _logger;

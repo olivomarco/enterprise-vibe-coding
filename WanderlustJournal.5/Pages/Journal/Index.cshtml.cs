@@ -10,7 +10,7 @@ namespace WanderlustJournal.Pages.Journal
 {
     public class IndexModel : PageModel
     {
-        private readonly JournalEntryService _journalService;
+        private readonly IJournalEntryService _journalService;
 
         public List<JournalEntry> JournalEntries { get; set; } = new List<JournalEntry>();
         
@@ -23,7 +23,7 @@ namespace WanderlustJournal.Pages.Journal
         [BindProperty(SupportsGet = true)]
         public DateTime? EndDate { get; set; }
 
-        public IndexModel(JournalEntryService journalService)
+        public IndexModel(IJournalEntryService journalService)
         {
             _journalService = journalService;
         }

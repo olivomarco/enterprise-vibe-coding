@@ -11,7 +11,7 @@ namespace WanderlustJournal.Pages.Journal
 {
     public class CreateModel : PageModel
     {
-        private readonly JournalEntryService _journalService;
+        private readonly IJournalEntryService _journalService;
         private readonly IWebHostEnvironment _environment;
         private readonly int _maxFileSize = 2 * 1024 * 1024; // 2MB
         private readonly string[] _allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
@@ -19,7 +19,7 @@ namespace WanderlustJournal.Pages.Journal
         [BindProperty]
         public JournalEntry JournalEntry { get; set; } = new JournalEntry();
 
-        public CreateModel(JournalEntryService journalService, IWebHostEnvironment environment)
+        public CreateModel(IJournalEntryService journalService, IWebHostEnvironment environment)
         {
             _journalService = journalService;
             _environment = environment;
