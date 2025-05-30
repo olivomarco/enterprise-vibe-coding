@@ -10,8 +10,8 @@ namespace WanderlustJournal.E2ETests.Tests
     [TestClass]
     public class JournalEntryTests
     {
-        private PlaywrightFixture _fixture;
-        private IPage _page;
+        private required PlaywrightFixture _fixture;
+        private required IPage _page;
         private string _baseUrl = "http://localhost:5026";
         
         [TestInitialize]
