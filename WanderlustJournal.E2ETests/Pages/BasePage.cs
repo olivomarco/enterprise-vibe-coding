@@ -8,7 +8,7 @@ namespace WanderlustJournal.E2ETests.Pages
         protected readonly IPage _page;
         public string BaseUrl { get; private set; }
         
-        public BasePage(IPage page, string baseUrl = "https://localhost:5001")
+        public BasePage(IPage page, string baseUrl = "http://localhost:5026")
         {
             _page = page;
             BaseUrl = baseUrl;

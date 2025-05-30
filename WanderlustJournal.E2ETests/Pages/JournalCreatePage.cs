@@ -6,7 +6,7 @@ namespace WanderlustJournal.E2ETests.Pages
 {
     public class JournalCreatePage : BasePage
     {
-        public JournalCreatePage(IPage page, string baseUrl = "https://localhost:5001") 
+        public JournalCreatePage(IPage page, string baseUrl = "http://localhost:5026") 
             : base(page, baseUrl)
         {
         }
