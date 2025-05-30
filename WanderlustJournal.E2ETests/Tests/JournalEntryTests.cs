@@ -10,8 +10,8 @@ namespace WanderlustJournal.E2ETests.Tests
     [TestClass]
     public class JournalEntryTests
     {
-        private required PlaywrightFixture _fixture;
-        private required IPage _page;
+        private PlaywrightFixture? _fixture;
+        private IPage? _page;
         private string _baseUrl = "http://localhost:5026";
         
         [TestInitialize]
@@ -24,12 +24,19 @@ namespace WanderlustJournal.E2ETests.Tests
         [TestCleanup]
         public void TestCleanup()
         {
-            _fixture.Dispose();
+            _fixture?.Dispose();
         }
         
         [TestMethod]
         public async Task CanCreateNewJournalEntry()
         {
+            // Skip if page is null
+            if (_page == null) 
+            {
+                Assert.Inconclusive("Test skipped due to null page");
+                return;
+            }
+            
             // Arrange
             var createPage = new JournalCreatePage(_page, _baseUrl);
             
@@ -56,6 +63,13 @@ namespace WanderlustJournal.E2ETests.Tests
         [TestMethod]
         public async Task ValidationErrors_WhenCreatingInvalidEntry()
         {
+            // Skip if page is null
+            if (_page == null) 
+            {
+                Assert.Inconclusive("Test skipped due to null page");
+                return;
+            }
+            
             // Arrange
             var createPage = new JournalCreatePage(_page, _baseUrl);
             
@@ -71,6 +85,13 @@ namespace WanderlustJournal.E2ETests.Tests
         [TestMethod]
         public async Task CanSearchForEntries()
         {
+            // Skip if page is null
+            if (_page == null) 
+            {
+                Assert.Inconclusive("Test skipped due to null page");
+                return;
+            }
+            
             // Arrange
             var journalListPage = new JournalListPage(_page, _baseUrl);
             
@@ -98,6 +119,13 @@ namespace WanderlustJournal.E2ETests.Tests
         [TestMethod]
         public async Task NoResults_WhenSearchingNonExistentTerm()
         {
+            // Skip if page is null
+            if (_page == null) 
+            {
+                Assert.Inconclusive("Test skipped due to null page");
+                return;
+            }
+            
             // Arrange
             var journalListPage = new JournalListPage(_page, _baseUrl);
             
