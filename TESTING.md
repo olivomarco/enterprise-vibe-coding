@@ -63,7 +63,7 @@ cd WanderlustJournal.E2ETests
 
 ### Running the Application for E2E Tests
 
-Before running the E2E tests, make sure the WanderlustJournal application is running on `https://localhost:5001`:
+Before running the E2E tests, make sure the WanderlustJournal application is running on `http://localhost:5026`:
 
 ```bash
 cd WanderlustJournal.5
