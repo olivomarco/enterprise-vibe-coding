@@ -38,7 +38,7 @@ public class PlaywrightFixture
             return;
         }
 
-        var projectPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "WanderlustJournal.5"));
+        var projectPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "../../../WanderlustJournal.5"));
         
         _dotnetProcess = new Process
         {
