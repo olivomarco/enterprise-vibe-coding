@@ -22,7 +22,7 @@ public class NavigationTests : PageTest
         
         // Test navigation to Search
         await Page.GetByRole(AriaRole.Link, new() { Name = "Search" }).ClickAsync();
-        await Expect(Page).ToHaveTitleAsync("Search Entries - WanderlustJournal");
+        await Expect(Page).ToHaveTitleAsync("Search Travel Memories - WanderlustJournal");
         
         // Test navigation to Privacy
         await Page.GetByRole(AriaRole.Link, new() { Name = "Privacy" }).ClickAsync();

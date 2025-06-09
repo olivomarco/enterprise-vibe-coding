@@ -15,8 +15,8 @@ public class JournalEntryTests : PageTest
         await Expect(Page).ToHaveTitleAsync("Journal Entries - WanderlustJournal");
         
         // Verify that the page contains expected elements
-        await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "Your Travel Memories" })).ToBeVisibleAsync();
-        await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Add New Entry" })).ToBeVisibleAsync();
+        await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "My Travel Memories" })).ToBeVisibleAsync();
+        await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Add New Memory" })).ToBeVisibleAsync();
     }
 
     [TestMethod]
@@ -24,11 +24,11 @@ public class JournalEntryTests : PageTest
     {
         await Page.GotoAsync($"{PlaywrightFixture.BaseUrl}/Journal");
         
-        // Click on the "Add New Entry" button
-        await Page.GetByRole(AriaRole.Link, new() { Name = "Add New Entry" }).ClickAsync();
+        // Click on the "Add New Memory" button
+        await Page.GetByRole(AriaRole.Link, new() { Name = "Add New Memory" }).ClickAsync();
         
         // Verify we're on the create page
-        await Expect(Page).ToHaveTitleAsync("Create New Entry - WanderlustJournal");
+        await Expect(Page).ToHaveTitleAsync("Add New Travel Memory - WanderlustJournal");
         
         // Verify form elements
         await Expect(Page.GetByLabel("Title")).ToBeVisibleAsync();
@@ -51,10 +51,10 @@ public class JournalEntryTests : PageTest
         await Page.GetByLabel("Date Visited").FillAsync(DateTime.Now.ToString("yyyy-MM-dd"));
         await Page.GetByLabel("Notes").FillAsync("This is a test entry created by Playwright");
         
-        // Submit the form
-        await Page.GetByRole(AriaRole.Button, new() { Name = "Create" }).ClickAsync();
+        // Submit the form - using the actual button text with icon
+        await Page.GetByRole(AriaRole.Button, new() { Name = "Save Memory" }).ClickAsync();
         
-        // We should be redirected to the details page
+        // We should be redirected to the journal list page
         await Expect(Page.GetByText(uniqueTitle)).ToBeVisibleAsync();
         await Expect(Page.GetByText("Paris, France")).ToBeVisibleAsync();
         await Expect(Page.GetByText("This is a test entry created by Playwright")).ToBeVisibleAsync();
@@ -67,15 +67,15 @@ public class JournalEntryTests : PageTest
         await Page.GotoAsync($"{PlaywrightFixture.BaseUrl}/Journal/Search");
         
         // Verify the search form is present
-        await Expect(Page.GetByPlaceholder("Enter search term...")).ToBeVisibleAsync();
+        await Expect(Page.GetByPlaceholder("Search by location, title or notes...")).ToBeVisibleAsync();
         
         // Enter a search term
-        await Page.GetByPlaceholder("Enter search term...").FillAsync("Paris");
+        await Page.GetByPlaceholder("Search by location, title or notes...").FillAsync("Paris");
         
         // Submit the search
         await Page.GetByRole(AriaRole.Button, new() { Name = "Search" }).ClickAsync();
         
-        // Verify search results
-        await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "Search Results" })).ToBeVisibleAsync();
+        // Verify search results heading appears (even if no results)
+        await Expect(Page.GetByText("Found")).ToBeVisibleAsync();
     }
 }

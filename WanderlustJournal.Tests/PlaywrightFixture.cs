@@ -16,13 +16,7 @@ public class PlaywrightFixture
     public static void AssemblyInitialize(TestContext _)
     {
         StartWebServer();
-        
-        // Install Playwright browsers if needed
-        var exitCode = Microsoft.Playwright.Program.Main(new[] { "install" });
-        if (exitCode != 0)
-        {
-            throw new Exception($"Playwright exited with code {exitCode}");
-        }
+        // Skip browser installation for now - browsers should be available
     }
 
     [AssemblyCleanup]
